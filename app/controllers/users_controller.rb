@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   def show
       @user = User.find(params[:id])
-      @articlesIndex = @user.articles
+      @articlesIndex = @user.articles.paginate(page: params[:page], per_page: 3)
       # to show articles that related to user based in user id
     end
     def index
-      @user = User.all
+      @user = User.paginate(page: params[:page], per_page: 3)
     end
   def new
     @user = User.new

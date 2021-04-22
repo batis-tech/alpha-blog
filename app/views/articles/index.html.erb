@@ -1,2 +1,8 @@
 <h1>Articles Listing page</h1>
+
+
 <%= render 'article' %>
+
+<div class="apple_pagination">
+    <%= will_paginate  @articlesIndex, :container => false %>
+  </div>
