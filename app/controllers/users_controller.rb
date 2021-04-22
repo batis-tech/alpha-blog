@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_user ,only: [:show, :edit, :update]
   def show
-      @user = User.find(params[:id])
       @articlesIndex = @user.articles.paginate(page: params[:page], per_page: 3)
       # to show articles that related to user based in user id
     end
@@ -11,10 +11,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
   def edit
-    @user = User.find(params[:id])
+
   end
   def update
-   @user = User.find(params[:id])
+
    if @user.update(user_perams)
      flash[:notice] = "Your account has been updated successfuly #{@user.username}"
      redirect_to @user
@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_perams)
     if @user.save
+      session[:user_id] = @user.id
       flash[:notice] = "Welcome to  #{@user.username},you have successfuly signed up"
       redirect_to articles_path
 
@@ -36,5 +37,8 @@ class UsersController < ApplicationController
   private
   def user_perams
     params.require(:user).permit(:username, :email, :password)
+  end
+  def set_user
+    @user = User.find(params[:id])
   end
 end
