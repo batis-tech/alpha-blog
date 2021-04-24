@@ -2,6 +2,9 @@
 <% if logged_in? %>
 <a><%= link_to "logout", logout_path, method: :delete %></a>
 <a><%= link_to current_user.username, user_path(current_user) %></a>
+<%= "(admin)" if current_user.admin? %> <a><%= link_to "user profile" ,user_path(current_user) %></a>
+<a><%= link_to "edit your profile" ,edit_user_path(current_user) %></a>
+<a><%= link_to "Delete your profile" ,user_path(current_user), method: :delete, data: { confirm: "Are you sure?" } %></a>
 <% else %>
 <a><%= link_to "login", login_path %></a>
 <a><%= link_to "sign up", signup_path %></a>

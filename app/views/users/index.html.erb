@@ -18,7 +18,14 @@
         <td><%= link_to gravatar_for(user, size: 150), user_path(user) %></td>
         <td><%= pluralize(user.articles.count , "article") %></td>
         <td><%= link_to'view profile', user_path(user) %></td>
+      <% if logged_in?%>
+         <% if user == current_user %>
         <td><%= link_to'edit',  edit_user_path(user.id)%></td>
+         <% end %>
+        <% if current_user.admin? %>
+     <td><%= link_to 'delete user', user_path(user.id), method: :delete, data: {confirm:"aree you sure want to delete user and all the accosiated blogs"}%></td>
+          <% end %>
+      <% end %>
         <td> <%= time_ago_in_words(user.created_at) %></td>
       </tr>
 

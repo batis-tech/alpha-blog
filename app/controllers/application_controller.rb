@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
       !!current_user
       #to check if current_user is access, yes or no
     end
+
+    def require_user
+      if !logged_in?
+        flash[:alert] = "Yoou must be logged in to perform that action"
+        redirect_to login_path
+    end
+  end
 end

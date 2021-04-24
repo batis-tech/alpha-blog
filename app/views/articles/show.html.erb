@@ -3,6 +3,8 @@
 <p><strong>Description:</strong><%= @article.description %></p>
 <p><strong>auther:</strong><%= @article.user.username %></p>
 <%= link_to gravatar_for(@article.user), user_path(@article.user) %>|
+<% if logged_in? && (@article.user == current_user || current_user.admin) %>
 <%= link_to 'edit',  edit_article_path(@article)%>|
 <%= link_to 'Delete', article_path(@article), method: :Delete, data: { confirm:"are you sure?" } %>|
+<% end %>
 <%= link_to 'Home page', articles_path%>

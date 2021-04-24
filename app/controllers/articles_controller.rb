@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
 
   before_action :set_article, only:[:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:show , :index]
+  before_action :require_same_user, only:[:edit, :update, :destroy]
   def show
   end
   def index
@@ -35,7 +37,7 @@ class ArticlesController < ApplicationController
 
  redirect_to articles_path
  end
- private  #mean it'ss only allowed in this contrller only
+ private  #mean it's only allowed in this contrller only
 
   def set_article
    @article = Article.find(params[:id])
@@ -44,5 +46,12 @@ class ArticlesController < ApplicationController
  def aritcles_perams
    params.require(:article).permit(:title, :description)
  end
+ def require_same_user
+   if current_user != @article.user && !current_user.admin?
+     flash[:alert] = "You can only edit or delete yoour own article"
+     redirect_to @article
+   end
+end
+
 
 end
