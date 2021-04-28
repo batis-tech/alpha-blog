@@ -9,6 +9,10 @@
 <a><%= link_to "login", login_path %></a>
 <a><%= link_to "sign up", signup_path %></a>
 <% end %>
+<% if logged_in? && current_user.admin? %>
+<a><%= link_to " create new category" ,new_category_path %></a>
+<% end %>
+<a><%= link_to "categories" ,categories_path %></a>
 <br><br><br>
 <%= render 'article' %>
 

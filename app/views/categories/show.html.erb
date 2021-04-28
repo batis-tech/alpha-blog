@@ -1,0 +1,12 @@
+<h1 class="text-center mt-4">Category: <%= @category.name %></h1>
+<% if logged_in? && current_user.admin %>
+<h1 class="text-center mt-4"><%= link_to "edit category name", edit_category_path(@category) %></h1>
+<% end %>
+
+<h1 class="text-center mt-4">Articles</h1>
+
+<%=  render 'articles/article'  %>
+
+<div class="apple_pagination">
+    <%= will_paginate  @articlesIndex, :container => false %>
+  </div>

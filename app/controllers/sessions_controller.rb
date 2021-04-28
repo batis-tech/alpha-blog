@@ -4,8 +4,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:sessions][:email].downcase)#to check if the email iss exist on the databasse table
-    if user && user.authenticate(params[:sessions][:password])
+    user = User.find_by(email: params[:session][:email].downcase)#to check if the email iss exist on the databasse table
+    if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
       flash[:notice] = "logged in succcessfully"
       redirect_to user

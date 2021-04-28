@@ -10,4 +10,5 @@ resources :users, except: [:new]
 get 'login' , to: 'sessions#new' #to get the data from database
 post 'login' , to: 'sessions#create' #to post the form request
 delete 'logout', to: 'sessions#destroy'
+resources :categories ,except: [:destroy]
 end
